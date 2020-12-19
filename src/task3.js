@@ -1,10 +1,6 @@
-const isNumberValid = (number) => Number.isFinite(number) && number <= Number.MAX_SAFE_INTEGER && number > 0;
+import { isNumberValid, isStrValid, isObj, calculateSumm } from './utils.js';
 
-const isStrValid = (str) => typeof str === 'string' && str !== '';
-
-const isObj = (arg) => typeof arg === 'object' && arg !== null;
-
-const splitStr = (str) => str.split('').map((letter) => letter.toLowerCase());
+const parseStr = (str) => str.split('').map((letter) => letter.toLowerCase());
 
 const isTriangleExist = ([a, b, c]) => a + b > c && a + c > b && b + c > a;
 
@@ -12,7 +8,7 @@ const isValidTriangle = (triangle) => {
   if (!isStrValid(triangle.vertices)) {
     return false;
   }
-  const vertices = splitStr(triangle.vertices);
+  const vertices = parseStr(triangle.vertices);
   if (vertices.length !== 3) {
     return false;
   }
@@ -20,7 +16,7 @@ const isValidTriangle = (triangle) => {
   if (!isVerticesValid) {
     return false;
   }
-  const verticesValues = vertices.map((name) => triangle[name]); 
+  const verticesValues = vertices.map((vertice) => triangle[vertice]); 
   return isTriangleExist(verticesValues);
 }
 
@@ -41,19 +37,19 @@ function validateArguments (triangles) {
 }
 
 const getTriangleSquare = (values) => {
-  const p = (values.reduce((summ, value) => summ + value, 0) / 2);
+  const p = calculateSumm(...values) / 2;
   return Math.sqrt(p * (p - values[0]) * (p - values[1]) * (p - values[2]));
 }
-        
+
 function sortTriangles (triangles) {
   const validationError = validateArguments(triangles);
   if (validationError) {
     throw new Error(validationError);
   }
   const trianglesWithSquares = triangles.map((triangle) => {
-    const verticesNames = splitStr(triangle.vertices);
-    const values = verticesNames.map((name) => triangle[name]);
-    return { vertices: triangle.vertices, square: getTriangleSquare(values) }; 
+    const verticesNames = parseStr(triangle.vertices);
+    const verticesValues = verticesNames.map((name) => triangle[name]);
+    return { vertices: triangle.vertices, square: getTriangleSquare(verticesValues) }; 
   });
-  return trianglesWithSquares.sort((a, b) => b.square - a.square);
+  return trianglesWithSquares.sort((a, b) => b.square - a.square).map(({ vertices }) => vertices);
 }

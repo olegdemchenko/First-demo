@@ -1,18 +1,25 @@
-const isObj = (arg) => typeof arg === 'object' && arg !== null;
+import { isObj, calculateSumm } from './utils';
 
-const validateNumber = (number) => Number.isFinite(number) && number < 1000000 && number >= 0;
-
-const normalizeNumbers = (...args) => args.map((numb) => Math.round(numb)).sort((a, b) => a - b);
+const validateNumber = (number) => Number.isFinite(number) && number < 1000000 && number > 0;
       
 function validateArguments(context) {
-  if (!isObj(context)) {
-    return 'Context must be object';
-  }
   const { min, max } = context;
   if (!validateNumber(min) || !validateNumber(max)) {
-    return 'Arguments must be valid numbers. Valid number is integer, which has max value 1000000 and min value 0';
+    return 'Arguments must be valid numbers. Valid number is integer, which has max value 999999 and min value 1';
   }
-  return null;
+  switch (true) {
+    case !isObj(context): {
+      return 'Context must be object';
+    }
+    case (!validateNumber(min) || !validateNumber(max)): {
+      return 'Arguments must be valid numbers. Valid number is integer, which has max value 999999 and min value 1';
+    }
+    case (context.min > context.max): {
+      return 'min arg must be less than max arg';
+    }
+    default:
+      return null;
+  }
 }
 
 function calculateCounts(min, max) {
@@ -29,8 +36,6 @@ function calculateCounts(min, max) {
   }
   return [simpleCounter, diffCounter];
 }
-      
-const calculateSumm = (...args) => args.reduce((summ, elem) => summ += Number(elem), 0);
 
 function isSimpleHappy(ticket) {
   const summFirstNumbs = calculateSumm(...ticket.slice(0, 3));
@@ -45,7 +50,7 @@ function isDiffHappy(ticket) {
   const summOdd = calculateSumm(...oddNumbs);
   return summEven === summOdd;
 };
-      
+
 function getWinnerMethod(simpleCount, diffCount) {
   switch (true) {
     case simpleCount > diffCount: 
@@ -57,12 +62,12 @@ function getWinnerMethod(simpleCount, diffCount) {
   }
 }
 
- function analyzeTickets(context) {
+function analyzeTickets(context) {
   const validationError = validateArguments(context);
   if (validationError) {
     throw new Error(validationError);
   }
-  const [min, max] = normalizeNumbers(context.min, context.max);
+  const { min, max } = context;
   const [simpleCount, diffCount] = calculateCounts(min, max);
   const winnerMethod = getWinnerMethod(simpleCount, diffCount);
   return { simple: simpleCount, difficult: diffCount, winnerMethod };

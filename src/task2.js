@@ -1,7 +1,5 @@
-const isNumberValid = (number) => Number.isFinite(number) && number <= Number.MAX_SAFE_INTEGER && number > 0;
+import { isNumberValid, isObj } from './utils.js';
 
-const isObj = (arg) => typeof arg === 'object' && arg !== null;
-        
 function validateArguments (envelope1, envelope2) {
   switch (true) {
     case !isObj(envelope1) || !isObj(envelope2): {

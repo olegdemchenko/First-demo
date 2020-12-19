@@ -1,24 +1,22 @@
-const isNumberValid = (number) => Number.isFinite(number) && number <= Number.MAX_SAFE_INTEGER && number > 0;
-
-const isStrValid = (str) => typeof str === 'string' && str !== '';
+import { isNumberValid, isStrValid } from './utils.js';
 
 const validateFieldLength = (width, height) => {
   const fieldLength = (width + 1) * height;
   return fieldLength <= 1 << 28 ? null : 'Field length is too large';
 }
-      
+
 function validateParams(width, height, symbol) {
   switch (true) {
     case !isNumberValid(width): {
       return 'Width must be number';
     }
     case !isNumberValid(height): {
-      return 'Height must be number';
+       return 'Height must be number';
     }
     case !isStrValid(symbol): {
       return 'Symbol must be string';
-    }
-    case symbol.length > 1: {
+     }
+     case symbol.length > 1: {
       return 'Symbol too long';
     }
     default: 
@@ -33,16 +31,18 @@ function printField(width, height, symbol) {
   if (validationError) {
     throw new Error(validationError);
   }
-  const fieldLengthError = validateFieldLength(width, height);
+  const normWidth = Math.round(width);
+  const normHeight = Math.round(height);
+  const fieldLengthError = validateFieldLength(normWidth, normHeight);
   if (fieldLengthError) {
     throw new Error(fieldLengthError);
   }
   const space = ' ';
-  const field = Array(height).fill([]).map((row, index) => {
+  const field = Array(normHeight).fill([]).map((row, index) => {
     if (index % 2 === 0) {
-      return createRow(width, symbol, space);
+      return createRow(normWidth, symbol, space);
     }
-    return createRow(width, space, symbol);
+    return createRow(normWidth, space, symbol);
   });
   return field.join('\n');
 }

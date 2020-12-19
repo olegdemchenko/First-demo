@@ -1,17 +1,14 @@
-const isObj = (arg) => typeof arg === 'object' && arg !== null;
+import { isObj, isValidNumber } from './utils.js'; 
 
-const isValidLength = (length) => Number.isFinite(length) && length <= Number.MAX_SAFE_INTEGER && length > 0
+const isValidLength = (length) => isValidNumber(length);
 
-const isValidNumber = (number) => Number.isFinite(number) && number <= Number.MAX_SAFE_INTEGER && number >= 0;
+const isValidMinMax = (number) => Number.isFinite(number) && number <= Number.MAX_SAFE_INTEGER && number >= 0;
 
-const normalizeNumbers = (...args) => args.map((numb) => Math.round(numb)).sort((a, b) => a - b);
-
-function parseContext(context) {
-  if (isValidLength(context.length)) {
-    const normLength = Math.round(context.length);
+function parseContext({ length, min, max }) {
+  if (isValidNumber(length)) {
+    const normLength = Math.round(length);
     return { min: 10 ** (normLength - 1), max: 10 ** normLength };
-  }
-  const [min, max] = normalizeNumbers(context.min, context.max);
+   }
   return { min, max };
 }
 
@@ -23,7 +20,9 @@ function validateArguments(context) {
     case (isValidLength(context.length)): {
       return null;
     }
-    case (isValidNumber(context.min) && isValidNumber(context.max)): {
+    case (isValidMinMax(context.min)
+          && isValidMinMax(context.max)
+          && context.max >= context.min): {
       return null;
     }
     default:
