@@ -1,23 +1,23 @@
-import { isNumberValid, isStrValid } from './utils.js';
+import { isNumberPositive, isStr } from './utils.js';
 
 const validateFieldLength = (width, height) => {
   const fieldLength = (width + 1) * height;
-  return fieldLength <= 1 << 28 ? null : 'Field length is too large';
+  return fieldLength <= 1 << 28 ? null : 'Field length is too large. Field length must be less than ';
 }
 
 function validateParams(width, height, symbol) {
   switch (true) {
-    case !isNumberValid(width): {
-      return 'Width must be positive integer';
+    case !isNumberPositive(width): {
+      return 'You should use positive number as width. The number must be in range 0 < numb <= (2 ** 53) - 1';
     }
-    case !isNumberValid(height): {
-       return 'Height must be positive integer';
+    case !isNumberPositive(height): {
+      return 'You should use positive number as height. The number must be in range 0 < numb <= (2 ** 53) - 1';
     }
-    case !isStrValid(symbol): {
-      return 'Symbol must be string';
-     }
-     case symbol.length > 1: {
-      return 'Symbol too long';
+    case !isStr(symbol): {
+      return 'You should use string as symbol';
+    }
+    case symbol.length > 1: {
+      return 'Symbol too long.The symbol length must be equal 1';
     }
     default: 
       return null;

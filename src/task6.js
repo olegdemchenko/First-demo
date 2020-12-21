@@ -1,8 +1,8 @@
-import { isNumberValid } from './utils.js'; 
+import { isNumberPositive, isNumberNonNegative } from './utils.js'; 
 
 export default function createSequence (minValue = 1, length = 1) {
-  if (!isNumberValid(minValue) || !isNumberValid(length)) {
-    throw new Error('Arguments must be valid numbers');
+  if (!isNumberPositive(minValue) || !isNumberNonNegative(length)) {
+    throw new Error('Please use only valid numbers. The number must be in range 0 < numb <= (2 ** 53) - 1');
   }
   const res = [];
   const startElem = Math.ceil(Math.sqrt(minValue));

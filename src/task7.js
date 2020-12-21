@@ -1,13 +1,9 @@
-import { isObj, isNumberValid } from './utils.js'; 
-
-const isValidLength = (length) => isNumberValid(length);
-
-const isValidMinMax = (number) => Number.isFinite(number) && number <= Number.MAX_SAFE_INTEGER && number >= 0;
+import { isObj, isNumberPositive, isNumberNonNegative } from './utils.js'; 
 
 function parseContext({ length, min, max }) {
-  if (isValidLength(length)) {
+  if (isNumberPositive(length)) {
     const normLength = Math.round(length);
-    return { min: 10 ** (normLength - 1), max: 10 ** normLength };
+    return { min: 10 ** (normLength - 1), max: (10 ** normLength) - 1 };
    }
   return { min, max };
 }
@@ -17,16 +13,16 @@ function validateArguments(context) {
     case (!isObj(context)): {
       return 'Context must be object';
     }
-    case (isValidLength(context.length)): {
+    case (isNumberPositive(context.length)): {
       return null;
     }
-    case (isValidMinMax(context.min)
-          && isValidMinMax(context.max)
+    case (isNumberNonNegative(context.min)
+          && isNumberNonNegative(context.max)
           && context.max >= context.min): {
       return null;
     }
     default:
-      return 'Context must contain valid length or valid min, max values';
+      return 'Please, use valid length or valid min, max values. Length must be in range 1 <= length <= (2 ** 53) - 1. Min and max values must be in range 0 <= numb <= (2 ** 53) - 1';
   }
 }
 

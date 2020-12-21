@@ -1,17 +1,17 @@
 import { isObj, calculateSumm } from './utils.js';
 
-const validateNumber = (number) => Number.isFinite(number) && number < 1000000 && number > 0;
+const isTicketValid = (number) => Number.isFinite(number) && number < 1000000 && number > 0;
       
 function validateArguments(context) {
   switch (true) {
     case !isObj(context): {
       return 'Context must be object';
     }
-    case (!validateNumber(context.min) || !validateNumber(context.max)): {
-      return 'Arguments must be valid numbers. Valid number is integer, which has max value 999999 and min value 1';
+    case (!isTicketValid(context.min) || !isTicketValid(context.max)): {
+      return 'Please use only valid numbers. The number must be in range 1 <= numb <= 999999';
     }
     case (context.min > context.max): {
-      return 'min arg must be less than max arg';
+      return 'Min arg must be less than max arg';
     }
     default:
       return null;
@@ -66,5 +66,5 @@ export default function analyzeTickets(context) {
   const { min, max } = context;
   const [simpleCount, diffCount] = calculateCounts(min, max);
   const winnerMethod = getWinnerMethod(simpleCount, diffCount);
-  return JSON.stringify({ simple: simpleCount, difficult: diffCount, winnerMethod });
+  return { simple: simpleCount, difficult: diffCount, winnerMethod };
 }

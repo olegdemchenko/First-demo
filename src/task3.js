@@ -1,18 +1,18 @@
-import { isNumberValid, isStrValid, isObj, calculateSumm } from './utils.js';
+import { isNumberPositive, isStr, isObj, calculateSumm } from './utils.js';
 
 const parseStr = (str) => str.split('').map((letter) => letter.toLowerCase());
 
 const isTriangleExist = ([a, b, c]) => a + b > c && a + c > b && b + c > a;
 
 const isValidTriangle = (triangle) => {
-  if (!isStrValid(triangle.vertices)) {
+  if (!isStr(triangle.vertices)) {
     return false;
   }
   const vertices = parseStr(triangle.vertices);
   if (vertices.length !== 3) {
     return false;
   }
-  const isVerticesValid = vertices.every((vertice) => isNumberValid(triangle[vertice]));
+  const isVerticesValid = vertices.every((vertice) => isNumberPositive(triangle[vertice]));
   if (!isVerticesValid) {
     return false;
   }
@@ -23,13 +23,13 @@ const isValidTriangle = (triangle) => {
 function validateArguments (triangles) {
   switch (true) {
     case !Array.isArray(triangles): {
-      return 'Triangles arg must be array';
+      return 'Triangles arg must be array. Please, make sure that you use correct data type.';
     }
     case !triangles.every((triangle) => isObj(triangle)): {
-      return 'Each triangle must be object';
+      return 'Each triangle must be object. Please, make sure that you use correct data type.';
     }
     case !triangles.every((triangle) => isValidTriangle(triangle)): {
-      return 'Each triangle must be valid';
+      return 'Each triangle must be valid. Please, make sure that each of triangles exist and contain valid vertice names and values.';
     }
     default: 
       return null;

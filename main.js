@@ -21,7 +21,8 @@ const renderResults = (results, container) => {
 const decorateListener = (listener, container) => (...args) => { 
   let res;
   try {
-    res = { status: 'success', result: listener(...args) };
+    const result = listener(...args);
+    res = { status: 'success', result };
   } catch (e) {
     res = { status: 'failed', reason: e.message };
   }
@@ -66,7 +67,7 @@ const ticketsListener = (e) => {
   const formData = new FormData(e.target);
   const min = Number(formData.get('min'));
   const max = Number(formData.get('max'));
-  return analyzeTickets({ min, max });
+  return JSON.stringify(analyzeTickets({ min, max }));
 };
 
 const sequenceListener = (e) => {
@@ -112,35 +113,3 @@ const taskListeners = {
 domStorage.forEach(({ task, form, resultField }) => {
   form.addEventListener('submit', decorateListener(taskListeners[task], resultField));
 });
-
-/*
-domStorage.task1.form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const formData = new FormData(e.target);
-  const width = Number(formData.get('width'));
-  const height = Number(formData.get('height'));
-  const decoratedPrint = catchError(printField);
-  const res = decoratedPrint(width, height, formData.get('symbol'));
-  renderResults(res, domStorage.task1.resultField);
-});
-
-domStorage.task2.form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const formData = new FormData(e.target);
-  const decoratedComparing = catchError(packEnvelope);
-  const a = Number(formData.get('a'));
-  const b = Number(formData.get('b'));
-  const c = Number(formData.get('c'));
-  const d = Number(formData.get('d'));
-  const res = decoratedComparing({ a, b }, { c, d });
-  renderResults(res, domStorage.task2.resultField);
-});
-
-domStorage.task3.form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const formData = new FormData(e.target);
-  const data = JSON.parse(formData.get('data'));
-  const decoratedSort = catchError(sortTriangles);
-  const res = decoratedSort(data);
-  renderResults(res, domStorage.task3.resultField);
-});*/

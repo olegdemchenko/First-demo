@@ -1,15 +1,15 @@
-import { isNumberValid, isObj } from './utils.js';
+import { isNumberPositive, isObj } from './utils.js';
 
 function validateArguments (envelope1, envelope2) {
   switch (true) {
     case !isObj(envelope1) || !isObj(envelope2): {
       return 'Envelope must be object';
     }
-    case !isNumberValid(envelope1.a) || !isNumberValid(envelope1.b): {
-      return 'First envelope sides must be positive numbers';
+    case !isNumberPositive(envelope1.a) || !isNumberPositive(envelope1.b): {
+      return 'First envelope sides must be positive numbers. The number must be in range 0 < numb <= (2 ** 53) - 1';
     }
-    case !isNumberValid(envelope2.c) || !isNumberValid(envelope2.d): {
-      return 'Second envelope sides must be positive numbers';
+    case !isNumberPositive(envelope2.c) || !isNumberPositive(envelope2.d): {
+      return 'Second envelope sides must be positive numbers. The number must be in range 0 < numb <= (2 ** 53) - 1';
     }
     default:
       return null;
