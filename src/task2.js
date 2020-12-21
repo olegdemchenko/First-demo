@@ -6,17 +6,17 @@ function validateArguments (envelope1, envelope2) {
       return 'Envelope must be object';
     }
     case !isNumberValid(envelope1.a) || !isNumberValid(envelope1.b): {
-      return 'First envelope arguments must be numbers';
+      return 'First envelope sides must be positive numbers';
     }
     case !isNumberValid(envelope2.c) || !isNumberValid(envelope2.d): {
-      return 'Second envelope arguments must be numbers';
+      return 'Second envelope sides must be positive numbers';
     }
     default:
       return null;
   }
 }        
 
-function packEnvelope (envelope1, envelope2) {
+export default function packEnvelope (envelope1, envelope2) {
   const validationError = validateArguments(envelope1, envelope2);
   if (validationError) {
     throw new Error(validationError);

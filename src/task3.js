@@ -40,8 +40,8 @@ const getTriangleSquare = (values) => {
   const p = calculateSumm(...values) / 2;
   return Math.sqrt(p * (p - values[0]) * (p - values[1]) * (p - values[2]));
 }
-
-function sortTriangles (triangles) {
+ 
+export default function sortTriangles (triangles) {
   const validationError = validateArguments(triangles);
   if (validationError) {
     throw new Error(validationError);

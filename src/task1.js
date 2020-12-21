@@ -8,10 +8,10 @@ const validateFieldLength = (width, height) => {
 function validateParams(width, height, symbol) {
   switch (true) {
     case !isNumberValid(width): {
-      return 'Width must be number';
+      return 'Width must be positive integer';
     }
     case !isNumberValid(height): {
-       return 'Height must be number';
+       return 'Height must be positive integer';
     }
     case !isStrValid(symbol): {
       return 'Symbol must be string';
@@ -26,7 +26,7 @@ function validateParams(width, height, symbol) {
 
 const createRow = (width, symbol, space) => Array(width).fill(symbol).map((elem, index) => index % 2 === 0 ? elem : space).join('');
 
-function printField(width, height, symbol) {
+export default function printField(width, height, symbol) {
   const validationError = validateParams(width, height, symbol);
   if (validationError) {
     throw new Error(validationError);

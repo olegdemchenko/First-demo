@@ -1,11 +1,11 @@
-import { isObj, isValidNumber } from './utils.js'; 
+import { isObj, isNumberValid } from './utils.js'; 
 
-const isValidLength = (length) => isValidNumber(length);
+const isValidLength = (length) => isNumberValid(length);
 
 const isValidMinMax = (number) => Number.isFinite(number) && number <= Number.MAX_SAFE_INTEGER && number >= 0;
 
 function parseContext({ length, min, max }) {
-  if (isValidNumber(length)) {
+  if (isValidLength(length)) {
     const normLength = Math.round(length);
     return { min: 10 ** (normLength - 1), max: 10 ** normLength };
    }
@@ -30,7 +30,7 @@ function validateArguments(context) {
   }
 }
 
-function getFibonacciSequence(context) {
+export default function getFibonacciSequence(context) {
   const validationError = validateArguments(context);
   if (validationError) {
     throw new Error(validationError);

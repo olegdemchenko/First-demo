@@ -1,6 +1,6 @@
 import { isNumberValid } from './utils.js'; 
 
-function createSequence (minValue = 1, length = 1) {
+export default function createSequence (minValue = 1, length = 1) {
   if (!isNumberValid(minValue) || !isNumberValid(length)) {
     throw new Error('Arguments must be valid numbers');
   }

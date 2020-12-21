@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demo project</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+</head>
+<body>
+    <header class="jumbotron jumbotron-fluid mb-0 bg-white border-bottom">
+      <div class="container py-4">
+          <div class="row justify-content-center">
+              <div class="col-6 text-center">
+                <h4 class="display-6">JS Elementary tasks</h4>
+              </div>
+          </div>
+      </div>
+    </header>
+    <main>
+      <div class="container">
+        <div class="task-header py-3">
+          <p class="fs-2 fw-light text-center mb-1">1. Chess field</p>
+          <p class="fs-4 fw-light text-center mb-1">Create a chess field</p>
+        </div>
+        <form class="row row-cols-auto g-4 align-items-center justify-content-center mt-1 pb-3 border task1-form">
+          <div class="col">
+            <label class="mb-2" for="task1Width">Width</label>
+            <input type="number" class="form-control" name="width" id="task1Width" step="any" required>
+          </div>
+          <div class="col">
+            <label class="mb-2" for="task1Height">Height</label>
+            <input type="number" class="form-control" name="height" id="task1Height" step="any" required>
+          </div>
+          <div class="col">
+            <label class="mb-2" for="task1Symbol">Symbol</label>
+            <input type="text" class="form-control" name="symbol" id="task1Symbol" placeholder="symbol" pattern="\S{1}" required>
+          </div>
+          <div class="col"><button class="btn btn-primary">Create</button></div>
+        </form>
+        <div class="row py-3"><pre class="col text-center task1-result fs-4"></pre></div>
+      </div>
+      <div class="container">
+        <div class="task-header py-3">
+          <p class="fs-2 fw-light text-center mb-1">2. Analyze envelops</p>
+          <p class="fs-4 fw-light text-center mb-1">Comparing envelops by thier sizes</p>
+        </div>
+        <form class="row row-cols-auto g-4 align-items-center justify-content-center mt-1 pb-3 border task2-form">
+          <div class="col">
+            <label class="mb-2" for="task2a">Envelope 1</label>
+            <input type="number" class="form-control" name="a" id="task2a" placeholder="Side a" step="any" required>
+          </div>
+          <div class="col">
+            <label class="mb-2" for="task2b">Envelope 1</label>
+            <input type="number" class="form-control" name="b" id="task2b" placeholder="Side b" step="any" required>
+          </div>
+          <div class="col">
+            <label class="mb-2" for="task2c">Envelope 2</label>
+            <input type="number" class="form-control" name="c" id="task2c" placeholder="Side c" step="any" required>
+          </div>
+          <div class="col">
+            <label class="mb-2" for="task2d">Envelope 2</label>
+            <input type="number" class="form-control" name="d" id="task2d" placeholder="Side d" step="any" required>
+          </div>
+          <div class="col"><button class="btn btn-primary">Compare</button></div>
+        </form>
+        <div class="row py-3"><div class="col text-center task2-result fs-4"></div></div>
+      </div>
+      <div class="container">
+        <div class="task-header py-3">
+          <p class="fs-2 fw-light text-center mb-1">3. Sorting triangles</p>
+          <p class="fs-4 fw-light text-center mb-1">Sort triangles by their square</p>
+        </div>
+        <form class="row row-cols-auto g-4 align-items-center justify-content-center mt-1 pb-3 border task3-form">
+          <div class="col-12">
+            <label class="mb-2" for="task3Data">Please, enter triangles data by following pattern</label>
+            <input type="text" class="form-control" name="data" id="task3Data" placeholder='[{"vertices": "ABC", "a": 1, "b": 2, "c": 3}, ...]' pattern='\[(\{[a-zA-Z0-9\.,: "]+\},? ?)+\]' required>
+          </div>
+          <div class="col"><button class="btn btn-primary">Sort</button></div>
+        </form>
+        <div class="row py-3"><div class="col text-center task3-result fs-4"></div></div>
+      </div>
+      <div class="container">
+        <div class="task-header py-3">
+          <p class="fs-2 fw-light text-center mb-1">4. Find palindrome</p>
+          <p class="fs-4 fw-light text-center mb-1">Find longest palindrome in number</p>
+        </div>
+        <form class="row row-cols-auto g-4 align-items-center justify-content-center mt-1 pb-3 border task4-form">
+          <div class="col">
+            <label class="mb-2" for="task4Number">Number</label>
+            <input type="number" class="form-control" name="number" id="task4Number" step="any" required>
+          </div>
+          <div class="col"><button class="btn btn-primary">Find</button></div>
+        </form>
+        <div class="row py-3"><div class="col text-center task4-result fs-4"></div></div>
+      </div>
+      <div class="container">
+        <div class="task-header py-3">
+          <p class="fs-2 fw-light text-center mb-1">5. Lucky tickets</p>
+          <p class="fs-4 fw-light text-center mb-1">Which way to find lucky tickets is the best</p>
+        </div>
+        <form class="row row-cols-auto g-4 align-items-center justify-content-center mt-1 pb-3 border task5-form">
+          <div class="col">
+            <label class="mb-2" for="task5Min">Minimal ticket number</label>
+            <input type="number" class="form-control" name="min" id="task5Min"  step="any"  required>
+          </div>
+          <div class="col">
+            <label class="mb-2" for="task5Max">Maximal ticket number</label>
+            <input type="number" class="form-control" name="max" id="task5Max"  step="any"  required>
+          </div>
+          <div class="col"><button class="btn btn-primary">Compare</button></div>
+        </form>
+        <div class="row py-3"><div class="col text-center task5-result fs-4"></div></div>
+      </div>
+      <div class="container">
+        <div class="task-header py-3">
+          <p class="fs-2 fw-light text-center mb-1">6. Sequence of numbers</p>
+          <p class="fs-4 fw-light text-center mb-1">Сreate a sequence of natural numbers</p>
+        </div>
+        <form class="row row-cols-auto g-4 align-items-center justify-content-center mt-1 pb-3 border task6-form">
+          <div class="col">
+            <label class="mb-2" for="task6Satrt">Square of start number</label>
+            <input type="number" class="form-control" name="start" id="task6Start"  step="any" required>
+          </div>
+          <div class="col">
+            <label class="mb-2" for="task6Length">Sequence length</label>
+            <input type="number" class="form-control" name="length" id="task6Length" step="any" required>
+          </div>
+          <div class="col"><button class="btn btn-primary">Create</button></div>
+        </form>
+        <div class="row py-3"><div class="col text-center task6-result fs-4"></div></div>
+      </div>
+      <div class="container">
+        <div class="task-header py-3">
+          <p class="fs-2 fw-light text-center mb-1">7. Fibonachi numbers</p>
+          <p class="fs-4 fw-light text-center mb-1">Get all fibonacci numbers for a range</p>
+        </div>
+        <form class="row row-cols-auto g-4 align-items-center justify-content-center mt-1 pb-3 border task7-form">
+          <div class="col">
+            <label class="mb-2" for="task7Min">Minimal number</label>
+            <input type="number" class="form-control" name="min" id="task7Min" step="any">
+          </div>
+          <div class="col">
+            <label class="mb-2" for="task7Max">Maximal number</label>
+            <input type="number" class="form-control" name="max" id="task7Max" step="any">
+          </div>
+          <div class="col">
+            <label class="mb-2" for="task7Length">Length</label>
+            <input type="number" class="form-control" name="length" id="task7Length" step="any">
+          </div>
+          <div class="col"><button class="btn btn-primary">Get</button></div>
+        </form>
+        <div class="row py-3"><div class="col text-center task7-result fs-4"></div></div>
+      </div>
+    </main>
+    <script type="module" src='./main.js'></script>
+</body>
+</html>

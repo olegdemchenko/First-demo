@@ -3,17 +3,17 @@ const validateNumb = (numb) => {
   return isValid ? null : 'Number must be valid';
 }
 
-const findPalyndrome = (str, leftStartPoint, rightStartPoint) => {
+const findPalindrome = (str, leftStartPoint, rightStartPoint) => {
   let leftPointer = leftStartPoint;
   let rightPointer = rightStartPoint;
-  while (leftPointer >= 0 && rightPointer < numb.length && str[leftPointer] === str[rightPointer]) {
+  while (leftPointer >= 0 && rightPointer < str.length && str[leftPointer] === str[rightPointer]) {
     leftPointer -= 1;
     rightPointer += 1;
   }
-  return numb.substr(leftPointer + 1, rightPointer - leftPointer - 1);
+  return str.substr(leftPointer + 1, rightPointer - leftPointer - 1);
 };
 
-const getLongestPalyndrome = (numb) => {
+export default function getLongestPalindrome (numb) {
   const validationError = validateNumb(numb);
   if (validationError) {
     throw new Error(validationError);
@@ -21,11 +21,11 @@ const getLongestPalyndrome = (numb) => {
   const stringifiedNumb = String(numb);
   let res = 0;
   for (let i = 0; i < stringifiedNumb.length - 1;  i += 1) {
-    const palyndromeEven = +findPalyndrome(stringifiedNumb, i, i + 1);
-    const palyndromeOdd = +findPalyndrome(stringifiedNumb, i, i);
-    const biggestPalyndrome = Math.max(palyndromeEven, palyndromeOdd);
-    if (biggestPalyndrome > res && biggestPalyndrome >= 10) {
-      res = biggestPalyndrome;
+    const palindromeEven = +findPalindrome(stringifiedNumb, i, i + 1);
+    const palindromeOdd = +findPalindrome(stringifiedNumb, i, i);
+    const biggestPalindrome = Math.max(palindromeEven, palindromeOdd);
+    if (biggestPalindrome > res && biggestPalindrome >= 10) {
+      res = biggestPalindrome;
     } 
   }
   return res;
