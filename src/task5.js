@@ -63,7 +63,7 @@ export default function analyzeTickets(context) {
   if (validationError) {
     throw new Error(validationError);
   }
-  const { simpleCount, diffCount } = calculateCounts(normMin, normMax);
-  const winnerMethod = getWinnerMethod(simpleCount, diffCount);
-  return { simple: simpleCount, difficult: diffCount, winnerMethod };
+  const { simpleCounter, diffCounter } = calculateCounts(normMin, normMax);
+  const winnerMethod = getWinnerMethod(simpleCounter, diffCounter);
+  return { simple: simpleCounter, difficult: diffCounter, winnerMethod };
 }
