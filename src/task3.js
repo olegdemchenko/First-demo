@@ -22,9 +22,6 @@ const isValidTriangle = (triangle) => {
 
 function validateArguments (triangles) {
   switch (true) {
-    case !Array.isArray(triangles): {
-      return 'Triangles arg must be array. Please, make sure that you use correct data type.';
-    }
     case !triangles.every((triangle) => isObj(triangle)): {
       return 'Each triangle must be object. Please, make sure that you use correct data type.';
     }

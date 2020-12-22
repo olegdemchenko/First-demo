@@ -7,16 +7,16 @@ import createSequence from './src/task6.js';
 import getFibonacciSequence from './src/task7.js';
 
 const renderResults = (results, container) => {
-    if (results.status === 'success') {
-      container.classList.remove('border-danger', 'text-danger');
-      container.classList.add('border', 'border-success');
-      container.textContent = results.result;
-      return;
-    }
-    container.classList.remove('border-success');
-    container.classList.add('border', 'border-danger', 'text-danger');
-    container.textContent = results.reason;
-  };
+  if (results.status === 'success') {
+    container.classList.remove('border-danger', 'text-danger');
+    container.classList.add('border', 'border-success');
+    container.textContent = results.result;
+    return;
+  }
+  container.classList.remove('border-success');
+  container.classList.add('border', 'border-danger', 'text-danger');
+  container.textContent = results.reason;
+};
 
 const decorateListener = (listener, container) => (...args) => { 
   let res;

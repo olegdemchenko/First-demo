@@ -1,4 +1,4 @@
-import { isNumberPositive, isStr } from './utils.js';
+import { isNumberNonNegative, isStr } from './utils.js';
 
 const validateFieldLength = (width, height) => {
   const fieldLength = (width + 1) * height;
@@ -7,17 +7,17 @@ const validateFieldLength = (width, height) => {
 
 function validateParams(width, height, symbol) {
   switch (true) {
-    case !isNumberPositive(width): {
-      return 'You should use positive number as width. The number must be in range 0 < numb <= (2 ** 53) - 1';
+    case !isNumberNonNegative(width): {
+      return 'Please, use positive number as width. The rounded number must be in range 0 < numb <= (2 ** 53) - 1';
     }
-    case !isNumberPositive(height): {
-      return 'You should use positive number as height. The number must be in range 0 < numb <= (2 ** 53) - 1';
+    case !isNumberNonNegative(height): {
+      return 'Please, use positive number as height. The rounded number must be in range 0 < numb <= (2 ** 53) - 1';
     }
     case !isStr(symbol): {
-      return 'You should use string as symbol';
+      return 'Please, use string as symbol';
     }
     case symbol.length > 1: {
-      return 'Symbol too long.The symbol length must be equal 1';
+      return 'Please, use short symbols. The symbol`s length must be equal 1';
     }
     default: 
       return null;
@@ -27,12 +27,12 @@ function validateParams(width, height, symbol) {
 const createRow = (width, symbol, space) => Array(width).fill(symbol).map((elem, index) => index % 2 === 0 ? elem : space).join('');
 
 export default function printField(width, height, symbol) {
-  const validationError = validateParams(width, height, symbol);
+  const normWidth = Math.round(width);
+  const normHeight = Math.round(height);
+  const validationError = validateParams(normWidth, normHeight, symbol);
   if (validationError) {
     throw new Error(validationError);
   }
-  const normWidth = Math.round(width);
-  const normHeight = Math.round(height);
   const fieldLengthError = validateFieldLength(normWidth, normHeight);
   if (fieldLengthError) {
     throw new Error(fieldLengthError);

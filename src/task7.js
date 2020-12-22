@@ -1,18 +1,14 @@
-import { isObj, isNumberPositive, isNumberNonNegative } from './utils.js'; 
+import { isNumberPositive, isNumberNonNegative } from './utils.js'; 
 
 function parseContext({ length, min, max }) {
   if (isNumberPositive(length)) {
-    const normLength = Math.round(length);
-    return { min: 10 ** (normLength - 1), max: (10 ** normLength) - 1 };
+    return { min: 10 ** (length - 1), max: (10 ** length) - 1 };
    }
   return { min, max };
 }
 
 function validateArguments(context) {
   switch (true) {
-    case (!isObj(context)): {
-      return 'Context must be object';
-    }
     case (isNumberPositive(context.length)): {
       return null;
     }
@@ -27,7 +23,8 @@ function validateArguments(context) {
 }
 
 export default function getFibonacciSequence(context) {
-  const validationError = validateArguments(context);
+  const normLength = Math.round(context.length);
+  const validationError = validateArguments({ ...context, length: normLength });
   if (validationError) {
     throw new Error(validationError);
   }

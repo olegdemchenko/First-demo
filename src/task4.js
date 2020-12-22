@@ -1,6 +1,6 @@
 const validateNumb = (numb) => {
   const isValid = Number.isFinite(numb) && numb < Number.MAX_SAFE_INTEGER && numb > Number.MIN_SAFE_INTEGER;
-  return isValid ? null : 'Please use only valid numbers. The number must be in range 0 < numb <= (2 ** 53) - 1';
+  return isValid ? null : 'Please use only valid numbers. The number must be in range - (2 ** 53) - 1 < numb <= (2 ** 53) - 1';
 }
 
 const findPalindrome = (str, leftStartPoint, rightStartPoint) => {

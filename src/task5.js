@@ -1,17 +1,15 @@
-import { isObj, calculateSumm } from './utils.js';
+import { calculateSumm } from './utils.js';
 
 const isTicketValid = (number) => Number.isFinite(number) && number < 1000000 && number > 0;
       
 function validateArguments(context) {
   switch (true) {
-    case !isObj(context): {
-      return 'Context must be object';
-    }
-    case (!isTicketValid(context.min) || !isTicketValid(context.max)): {
-      return 'Please use only valid numbers. The number must be in range 1 <= numb <= 999999';
+    case (!isTicketValid(context.min)
+          || !isTicketValid(context.max)): {
+      return 'Please use only valid numbers. The rounded number must be in range 1 <= numb <= 999999';
     }
     case (context.min > context.max): {
-      return 'Min arg must be less than max arg';
+      return 'Please use min arg which less than max arg';
     }
     default:
       return null;
@@ -30,7 +28,7 @@ function calculateCounts(min, max) {
       diffCounter += 1;
     }
   }
-  return [simpleCounter, diffCounter];
+  return { simpleCounter, diffCounter };
 }
 
 function isSimpleHappy(ticket) {
@@ -59,12 +57,13 @@ function getWinnerMethod(simpleCount, diffCount) {
 }
 
 export default function analyzeTickets(context) {
-  const validationError = validateArguments(context);
+  const normMin = Math.round(context.min);
+  const normMax = Math.round(context.max); 
+  const validationError = validateArguments({ min: normMin, max: normMax });
   if (validationError) {
     throw new Error(validationError);
   }
-  const { min, max } = context;
-  const [simpleCount, diffCount] = calculateCounts(min, max);
+  const { simpleCount, diffCount } = calculateCounts(normMin, normMax);
   const winnerMethod = getWinnerMethod(simpleCount, diffCount);
   return { simple: simpleCount, difficult: diffCount, winnerMethod };
 }

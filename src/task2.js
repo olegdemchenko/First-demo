@@ -2,14 +2,11 @@ import { isNumberPositive, isObj } from './utils.js';
 
 function validateArguments (envelope1, envelope2) {
   switch (true) {
-    case !isObj(envelope1) || !isObj(envelope2): {
-      return 'Envelope must be object';
-    }
     case !isNumberPositive(envelope1.a) || !isNumberPositive(envelope1.b): {
-      return 'First envelope sides must be positive numbers. The number must be in range 0 < numb <= (2 ** 53) - 1';
+      return 'Please, make sure that each side of first envelope is positive number. The number must be in range 0 < numb <= (2 ** 53) - 1';
     }
     case !isNumberPositive(envelope2.c) || !isNumberPositive(envelope2.d): {
-      return 'Second envelope sides must be positive numbers. The number must be in range 0 < numb <= (2 ** 53) - 1';
+      return 'Please, make sure that each side of second envelope is positive number. The number must be in range 0 < numb <= (2 ** 53) - 1';
     }
     default:
       return null;
